@@ -1,10 +1,10 @@
 # BabaiHotel
 
-Team mates:
-Vamsi
-Harsha
-Varun
-Yagna
+Team mates:<br />
+Vamsi<br />
+Harsha<br />
+Varun<br />
+Yagna<br />
 hey there learner,<br />
 
 instruction to run:<br />
