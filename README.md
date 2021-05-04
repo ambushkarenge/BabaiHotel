@@ -1,19 +1,19 @@
 # BabaiHotel
 
-hey there learner,\n
+hey there learner,<br />
 
-instruction to run:\n
+instruction to run:<br />
 
-open your termnal and follow the series of commands below\n
-    -> sudo su - potgres\n
-    -> psql \n
-    -> ALTER USER postgres WITH PASSWORD 'Varun@2211'\n
-    ctrl+c\n
-    -> psql -h 127.0.0.1 -p 5432\n
-    Enter the password 'Varun@2211' when prompted\n
+open your termnal and follow the series of commands below<br />
+    -> sudo su - potgres<br />
+    -> psql <br />
+    -> ALTER USER postgres WITH PASSWORD 'Varun@2211'<br />
+    ctrl+c<br />
+    -> psql -h 127.0.0.1 -p 5432<br />
+    Enter the password 'Varun@2211' when prompted<br />
 
-Open another terminal\n
-    -> node app.js\n
+Open another terminal<br />
+    -> node app.js<br />
 
-open the following website in a browser\n
-    -> localhost:3000/admin/add-product\n
+open the following website in a browser<br />
+    -> localhost:3000/admin/add-product<br />
