@@ -24,6 +24,28 @@ exports.get_waiter1 = (req,res,next) => {
 
 
 };
+exports.get_waiter2 = (req,res,next) => {
+
+
+    res.render('waiter2', {
+        pageTitle: 'waiter2',
+        path: '/waiter2',
+        editing: false
+    });
+
+
+};
+exports.get_waiter3 = (req,res,next) => {
+
+
+    res.render('waiter3', {
+        pageTitle: 'waiter3',
+        path: '/waiter3',
+        editing: false
+    });
+
+
+};
 exports.post_test = (req,res,next) => {
     const title = req.body.title;
     const image = req.body.image
