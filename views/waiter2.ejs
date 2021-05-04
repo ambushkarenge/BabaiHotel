@@ -16,23 +16,32 @@
     <article class="card product-item">
         <header class="card__header">
             <h1 class="product__title">
-                <%="Apple"%>
+                <%="Chicken Biryani"%>
             </h1>
         </header>
         <div class="card__image">
-            <img src=<%="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"%> width="50" height="150" alt="apple">
+            <img src=<%="https://c.ndtvimg.com/2019-06/s71ihu9_biryani_625x300_05_June_19.jpg"%> width="50" height="150" alt="biryani">
         </div>
         <div class="card__content">
-            <h2 class="product__price">$
+            <!-- <h2 class="product__price">$
                 <%="2101"%>
-            </h2>
-            <p class="product__description">Qt Ord:
-                <%="450"%>
+            </h2> -->
+            <p class="product__description">Serves:
+                <%="4"%>
             </p>
         </div>
-
+        <div class="form-control">
+            <label for="title">Quantity</label>
+            <input type="text" name="quantity" id="title" value="<% if (editing) { %><%= 0 %><% } %>">
+        </div>
     </article>
     <%}%>
 </div>
+<div class="card__actions">
+    <form action="/cart" method="post">
+        <button class="btn" type="submit">Submit</button>
+        <input type="hidden" name="product_id" value=<%=1%>>
+        </form>
+    </div>
 </main>
 <%- include('includes/end.ejs') %>
