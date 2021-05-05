@@ -121,7 +121,6 @@ exports.get_chef1 = (req,res,next) => {
 };
 exports.get_manager1 = (req,res,next) => {
 
-
     res.render('manager1', {
         pageTitle: 'manager1',
         path: '/manager1',
@@ -132,13 +131,16 @@ exports.get_manager1 = (req,res,next) => {
 };
 exports.get_manager2 = (req,res,next) => {
 
-
-    res.render('manager2', {
-        pageTitle: 'manager2',
-        path: '/manager2',
-        editing: false
-    });
-
+    Hotel
+    .get_ingredients()
+    .then((x) => {
+        res.render('manager2', {
+            pageTitle: 'manager2',
+            path: '/manager2',
+            editing: false,
+            ingredients: x
+        });
+    })
 
 };
 exports.get_cashier1 = (req,res,next) => {
@@ -175,4 +177,40 @@ exports.post_test = (req,res,next) => {
             res.redirect('/admin/add-product');
         })
         .catch(err => console.log(err));
+};
+
+exports.post_manager2 = (req,res,next) => {
+    var cost = 0;
+    Hotel
+    .get_ingredients()
+    .then((x) => {
+        for(i=0;i<x.rows.length;++i){
+            const name = x.rows[i].ingredient_id;
+            if(req.body[name]!=0){
+                const q = req.body[name];
+                cost = cost + q*x.rows[i].price;
+                Hotel.add_ingredients(name,q);
+            }
+        }
+        Hotel
+        .add_cashflow(cost)
+        .then(() => {
+            res.redirect('/manager2');
+        })
+        .catch(err => console.log(err));
+    })
+
+};
+
+exports.post_manager1 = (req,res,next) => {
+
+    const c_name = req.body.name;
+    const feedback = req.body.feedback;
+    Hotel
+        .add_feedback(c_name,feedback)
+        .then(()=>{
+            res.redirect('/manager1');
+        })
+        .catch(err => console.log(err));
+
 };

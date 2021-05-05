@@ -83,19 +83,17 @@ CREATE TABLE public.person (
 );
 
 CREATE TABLE public.feedback (
-	customer_id int REFERENCES public.person (user_id),
+	name text,
 	comment text,
 	entrytime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	manager_id int REFERENCES public.person (user_id),
-	PRIMARY KEY (customer_id, entrytime) 
+	PRIMARY KEY (name, entrytime) 
 );
 
 CREATE TABLE public.moneyflow (
 	flow_id int PRIMARY KEY DEFAULT nextval('flow_id_seq'),
 	amount numeric(15,2),
 	io_check text CHECK (io_check in ('in','out')),
-	entrytime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	cashier_id int REFERENCES public.person (user_id)
+	entrytime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE public.tables (
@@ -152,10 +150,10 @@ CREATE TABLE public.bill_order (
 COPY public.person (name, contact_no, address, type) FROM stdin;
 \.
 
-COPY public.feedback (customer_id, comment, manager_id) FROM stdin;
+COPY public.feedback (name, comment) FROM stdin;
 \.
 
-COPY public.moneyflow (amount, io_check, cashier_id) FROM stdin;
+COPY public.moneyflow (amount, io_check) FROM stdin;
 \.
 
 COPY public.tables (active) FROM stdin;

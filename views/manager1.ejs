@@ -11,14 +11,14 @@
      <button type="submit">Buy</button>
  </form> -->
 
- <form class="product-form" action="http://localhost:3000/admin/add-product" method="POST">
+ <form class="product-form" action="http://localhost:3000/manager1" method="POST">
     <div class="form-control">
         <label for="name">Name</label>
-        <input type="text" name="name" id="name" value="<% if (editing) { %><%= "John Doe" %><% } %>">
+        <input type="text" name="name" id="name">
     </div>
     <div class="form-control">
         <label for="feedback">Feedback</label>
-        <input type="text" name="feedback" id="feedback" value="<% if (editing) { %><%= "Your comments go here" %><% } %>">
+        <input type="text" name="feedback" id="feedback">
     </div>
     <!-- <div class="form-control">
         <label for="price">Price</label>
@@ -28,11 +28,7 @@
         <label for="price">Quantity</label>
         <input type="number" name="quantity" id="quantity"  value="<% if (editing) { %><%= product.quantity %><% } %>">
     </div> -->
-    <% if (editing) { %>
-        <input type="hidden" value="<%= product.id %>" name="productId">
-    <% } %>
-
-    <button class="btn" type="submit"><% if (editing) { %>Update Product<% } else { %>Submit<% } %></button>
+    <button class="btn" type="submit">Submit</button>
 </form>
 </main>
 <%- include('includes/end.ejs') %>

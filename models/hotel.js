@@ -48,4 +48,25 @@ module.exports = class Hotel{
     {
         return pool.query("select * from item;");
     }
+
+
+    //manager1
+    static add_feedback(c_name,c_feedback)
+    {
+        return pool.query("insert into feedback(name,comment) values ($1,$2);",[c_name,c_feedback]);
+    }
+
+    //manager2
+    static get_ingredients()
+    {
+        return pool.query("select * from ingredient;");
+    }
+    static add_ingredients(id,q)
+    {
+        return pool.query("update ingredient set quantity = quantity + $2 where ingredient_id = $1;",[id,q]);
+    }
+    static add_cashflow(cost)
+    {
+        return pool.query("insert into moneyflow(amount, io_check) values ($1, 'out');",[cost]);
+    }
 };

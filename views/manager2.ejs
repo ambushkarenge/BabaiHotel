@@ -13,13 +13,14 @@
 
  
  <h1>INGREDIENTS</h1>
+ <form action="/manager2" method="post">
  <div class="grid">
-    <%for(var ijk = 0;ijk<5  ;ijk++){ %>  
+    <%for(var ijk = 0; ijk<ingredients.rows.length; ijk++){ %>  
         <!-- insert length -->
     <article class="card product-item">
         <header class="card__header">
             <h1 class="product__title">
-                <%="Chicken"%><%=ijk%>
+                <%= (ingredients) ? ingredients.rows[ijk].name : ''%>
             </h1>
         </header>
         <div class="card__image">
@@ -30,7 +31,10 @@
                 <%="Vacant"%>
             </h2> -->
             <p class="product__description">Quantity:
-                <%="1"%>kg
+                <%= (ingredients) ? ingredients.rows[ijk].quantity : ''%>
+            </p>
+            <p class="product__description">Price/Unit:
+                <%=ingredients.rows[ijk].price%>/<%=ingredients.rows[ijk].unit%>
             </p>
             <!-- <div class="card__actions">
         <form action="/cart" method="post">
@@ -41,16 +45,15 @@
         </div>
         <div class="form-control">
             <label for="title">Quantity</label>
-            <input type="text" name="quantity" id="title" value="<% if (editing) { %><%= 0 %><% } %>">
+            <input type="text" name=<%= ingredients.rows[ijk].ingredient_id%> id="title" value=0>
         </div>
     </article>
     <%}%>
 </div>
-</main>
 <div class="card__actions">
-    <form action="/cart" method="post">
-        <button class="btn" type="submit">Submit</button>
-        <input type="hidden" name="product_id" value=<%=1%>>
-        </form>
-    </div>
+    <button class="btn" type="submit">Submit</button>
+</div>
+</form>
+</main>
+
 <%- include('includes/end.ejs') %>
