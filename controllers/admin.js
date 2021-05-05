@@ -46,6 +46,17 @@ exports.get_waiter3 = (req,res,next) => {
 
 
 };
+exports.get_chef1 = (req,res,next) => {
+
+
+    res.render('chef1', {
+        pageTitle: 'chef1',
+        path: '/chef1',
+        editing: false
+    });
+
+
+};
 exports.post_test = (req,res,next) => {
     const title = req.body.title;
     const image = req.body.image
