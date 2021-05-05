@@ -79,6 +79,28 @@ exports.get_manager2 = (req,res,next) => {
 
 
 };
+exports.get_cashier1 = (req,res,next) => {
+
+
+    res.render('cashier1', {
+        pageTitle: 'cashier1',
+        path: '/cashier1',
+        editing: false
+    });
+
+
+};
+exports.get_cashier2 = (req,res,next) => {
+
+
+    res.render('cashier2', {
+        pageTitle: 'cashier2',
+        path: '/cashier2',
+        editing: false
+    });
+
+
+};
 exports.post_test = (req,res,next) => {
     const title = req.body.title;
     const image = req.body.image
