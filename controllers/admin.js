@@ -1,4 +1,5 @@
 const Prod = require('../models/prod');
+const Hotel = require('../models/hotel');
 
 
 exports.get_test = (req,res,next) => {
@@ -15,14 +16,52 @@ exports.get_test = (req,res,next) => {
 
 exports.get_waiter1 = (req,res,next) => {
 
-
-    res.render('waiter1', {
-        pageTitle: 'waiter1',
-        path: '/waiter1',
-        editing: false
-    });
-
-
+    Hotel
+    .get_all_tables()
+    .then((x)=>
+    {
+        res.render('waiter1', {
+            pageTitle: 'waiter1',
+            path: '/waiter1',
+            tab_rows: x.rows,
+            editing: false
+        });
+    }
+    )
+};
+exports.post_waiter1 = (req,res,next) => {
+    const table_id = req.body.table_id;
+    //console.log(table_id)
+    Hotel
+        .get_table_status(table_id)
+        .then((x) => {
+            var val = x.rows[0].active
+            console.log(val)
+            console.log(val.localeCompare('no'))
+            if(val.localeCompare('no')==0)
+            {
+                console.log('no');
+                Hotel 
+                .update_table_occupied(table_id)
+                .then(()=>
+                {
+                    res.redirect('/waiter2');
+                })
+                .catch(err=>console.log(err));
+            }
+            else
+            {
+                console.log('yes');
+                Hotel 
+                .update_table_vacant(table_id)
+                .then(()=>
+                {
+                    res.redirect('/waiter2');
+                })
+                .catch(err=>console.log(err));
+            }
+        })
+        .catch(err => console.log(err));
 };
 exports.get_waiter2 = (req,res,next) => {
 

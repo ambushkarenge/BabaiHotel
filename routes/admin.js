@@ -17,5 +17,6 @@ router.get('/manager2',adminCon.get_manager2);
 router.get('/cashier1',adminCon.get_cashier1);
 router.get('/cashier2',adminCon.get_cashier2);
 
+router.post('/waiter1',adminCon.post_waiter1);
 
 module.exports = router;

@@ -11,12 +11,12 @@
      <button type="submit">Buy</button>
  </form> -->
  <div class="grid">
-    <%for(var ijk = 0;ijk<5  ;ijk++){ %>  
+    <%for(var ijk = 0;ijk<tab_rows.length  ;ijk++){ %>  
         <!-- insert length -->
     <article class="card product-item">
         <header class="card__header">
             <h1 class="product__title">
-                <%="table"%><%=ijk%>
+                <%="table"%><%=tab_rows[ijk].table_no%>
             </h1>
         </header>
         <div class="card__image">
@@ -27,12 +27,17 @@
                 <%="Vacant"%>
             </h2> -->
             <p class="product__description">Status:
-                <%="Vacant"%>
+                <%if(tab_rows[ijk].active=="no"){%>
+                    <p class="product__description">"Vacant"</p>
+                <%}else{%>
+                    <p class="product__description">"Occupied"</p>
+                    <%}%>
+                
             </p>
             <div class="card__actions">
-        <form action="/cart" method="post">
+        <form action="/waiter1" method="post">
             <button class="btn" type="submit">Occupy/Clear</button>
-            <input type="hidden" name="product_id" value=<%=ijk%>>
+            <input type="hidden" name="table_id" value=<%=tab_rows[ijk].table_no%>>
             </form>
         </div>
         </div>
