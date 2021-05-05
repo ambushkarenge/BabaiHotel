@@ -49,7 +49,26 @@ module.exports = class Hotel{
         return pool.query("select * from item;");
     }
 
+    static add_item_order(order_no,item_no,q)
+    {
+        return pool.query("INSERT into orders(order_no,item_no,numitems,status) values ($1,$2,$3,'placed');",[order_no,item_no,q]);
+    }
 
+    //waiter3
+    static get_order_details()
+    {
+        return pool.query("select item.name, order_table.table_no, orders.order_no,orders.item_no,orders.numitems,orders.status from item, orders,order_table where item.item_no = orders.item_no and orders.order_no = order_table.order_no and orders.status <> 'closed';");
+    }
+
+    static get_status(item_no,order_no)
+    {
+        return pool.query("select status from orders where item_no = $1 and order_no = $2;",[item_no,order_no]);
+    }
+
+    static close_item(item_no,order_no)
+    {
+        return pool.query("update orders set status = 'closed' where item_no = $1 and order_no = $2;",[item_no,order_no]);
+    }
     //manager1
     static add_feedback(c_name,c_feedback)
     {

@@ -95,18 +95,65 @@ exports.get_waiter2 = (req,res,next) => {
 exports.post_waiter2 = (req,res,next) => {
     const table_no = req.body.table_no;
     const order_no = req.body.order_no;
-    const my_quant = [];
+    //var cost = 0;
+    Hotel
+    .get_items()
+    .then((x) => {
+        for(i=0;i<x.rows.length;++i){
+            const name = x.rows[i].item_no;
+            if(req.body[name]!=0){
+                const q = req.body[name];
+                //cost = cost + q*x.rows[i].price;
+                Hotel.add_item_order(order_no,name,q);
+            }
+        }
+        // Hotel
+        // .add_cashflow(cost)
+        // .then(() => {
+            
+        // })
+        // .catch(err => console.log(err));
+    })
+    res.redirect('/waiter3');
 };
 exports.get_waiter3 = (req,res,next) => {
 
 
-    res.render('waiter3', {
-        pageTitle: 'waiter3',
-        path: '/waiter3',
-        editing: false
-    });
+    Hotel
+    .get_order_details()
+    .then((x)=>{
+        res.render('waiter3', {
+            pageTitle: 'waiter3',
+            path: '/waiter3',
+            order_rows:x.rows,
+            editing: false
+        });
+    })
+};
 
-
+exports.post_waiter3 = (req,res,next) => {
+    const item_no = req.body.item_no;
+    const order_no = req.body.order_no;
+    //var cost = 0;
+    Hotel
+    .get_status(item_no,order_no)
+    .then((x)=>
+    {
+        if(x.rows[0].status == 'declined' || x.rows[0].status == 'ready')
+        {
+            Hotel
+            .close_item(item_no,order_no)
+            .then((x) => {
+                    res.redirect('/waiter3');
+                
+            })
+        }
+        else
+        {
+            res.redirect('/waiter3');
+        }
+    })
+    
 };
 exports.get_chef1 = (req,res,next) => {
 

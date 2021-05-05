@@ -19,6 +19,7 @@ router.get('/cashier2',adminCon.get_cashier2);
 
 router.post('/waiter1',adminCon.post_waiter1);
 router.post('/waiter2',adminCon.post_waiter2);
+router.post('/waiter3',adminCon.post_waiter3);
 router.post('/manager1',adminCon.post_manager1);
 router.post('/manager2',adminCon.post_manager2);
 
