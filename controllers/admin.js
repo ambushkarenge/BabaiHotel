@@ -57,6 +57,28 @@ exports.get_chef1 = (req,res,next) => {
 
 
 };
+exports.get_manager1 = (req,res,next) => {
+
+
+    res.render('manager1', {
+        pageTitle: 'manager1',
+        path: '/manager1',
+        editing: false
+    });
+
+
+};
+exports.get_manager2 = (req,res,next) => {
+
+
+    res.render('manager2', {
+        pageTitle: 'manager2',
+        path: '/manager2',
+        editing: false
+    });
+
+
+};
 exports.post_test = (req,res,next) => {
     const title = req.body.title;
     const image = req.body.image

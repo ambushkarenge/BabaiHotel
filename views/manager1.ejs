@@ -1,0 +1,38 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/product.css">
+</head>
+<body>
+    <%- include('includes/navigation_manager.ejs') %> 
+    <main>
+ <!-- in main -->
+ <!-- <h2>Credits availabe: 990518</h2> -->
+ <!-- <form action="https://foddsdfaosjo.xyz/cart" method="post">
+     <button type="submit">Buy</button>
+ </form> -->
+
+ <form class="product-form" action="http://localhost:3000/admin/add-product" method="POST">
+    <div class="form-control">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" value="<% if (editing) { %><%= "John Doe" %><% } %>">
+    </div>
+    <div class="form-control">
+        <label for="feedback">Feedback</label>
+        <input type="text" name="feedback" id="feedback" value="<% if (editing) { %><%= "Your comments go here" %><% } %>">
+    </div>
+    <!-- <div class="form-control">
+        <label for="price">Price</label>
+        <input type="number" name="price" id="price" step="0.01" value="<% if (editing) { %><%= product.price %><% } %>">
+    </div>
+    <div class="form-control">
+        <label for="price">Quantity</label>
+        <input type="number" name="quantity" id="quantity"  value="<% if (editing) { %><%= product.quantity %><% } %>">
+    </div> -->
+    <% if (editing) { %>
+        <input type="hidden" value="<%= product.id %>" name="productId">
+    <% } %>
+
+    <button class="btn" type="submit"><% if (editing) { %>Update Product<% } else { %>Submit<% } %></button>
+</form>
+</main>
+<%- include('includes/end.ejs') %>
