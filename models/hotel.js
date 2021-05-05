@@ -13,7 +13,7 @@ module.exports = class Hotel{
         return pool.query('INSERT INTO products(title, price, image, quantity) VALUES ($1, $2, $3, $4);', [this.title, this.price, this.image, this.quantity]);
     }
     static get_all_tables(){
-        return pool.query('SELECT * FROM tables');
+        return pool.query('SELECT * FROM tables order by table_no');
 
     }
     // waiter1
@@ -46,7 +46,7 @@ module.exports = class Hotel{
     }
     static get_items()
     {
-        return pool.query("select * from item;");
+        return pool.query("select * from item order by item_no;");
     }
 
     static add_item_order(order_no,item_no,q)
@@ -57,7 +57,7 @@ module.exports = class Hotel{
     //waiter3
     static get_order_details()
     {
-        return pool.query("select item.name, order_table.table_no, orders.order_no,orders.item_no,orders.numitems,orders.status from item, orders,order_table where item.item_no = orders.item_no and orders.order_no = order_table.order_no and orders.status <> 'closed';");
+        return pool.query("select item.name, order_table.table_no, orders.order_no,orders.item_no,orders.numitems,orders.status from item, orders,order_table where item.item_no = orders.item_no and orders.order_no = order_table.order_no and orders.status <> 'closed' order by entrytime;");
     }
 
     static get_status(item_no,order_no)
@@ -78,7 +78,7 @@ module.exports = class Hotel{
     //manager2
     static get_ingredients()
     {
-        return pool.query("select * from ingredient;");
+        return pool.query("select * from ingredient order by ingredient_id;");
     }
     static add_ingredients(id,q)
     {
@@ -87,5 +87,27 @@ module.exports = class Hotel{
     static add_cashflow(cost)
     {
         return pool.query("insert into moneyflow(amount, io_check) values ($1, 'out');",[cost]);
+    }
+
+    //chef1
+    static get_orders()
+    {
+        return pool.query("select order_no, name, item.item_no as item_no, numitems, status from orders, item where orders.item_no = item.item_no order by entrytime;");
+    }
+    static check_quantity(item_no,quantity)
+    {
+        return pool.query("update ingredient set quantity = quantity - $2*(select quantity_used from preparedby where ingredient.ingredient_id = preparedby.ingredient_id and preparedby.item_no = $1) where ingredient_id in (select ingredient_id from preparedby where preparedby.item_no = $1);",[item_no,quantity]);
+    }
+    static approve(orderno, itemno)
+    {
+        return pool.query("update orders set status = 'approved' where order_no = $1 and item_no = $2", [orderno, itemno]);
+    }
+    static decline(orderno, itemno)
+    {
+        return pool.query("update orders set status = 'declined' where order_no = $1 and item_no = $2", [orderno, itemno]);
+    }
+    static ready(orderno, itemno)
+    {
+        return pool.query("update orders set status = 'ready' where order_no = $1 and item_no = $2", [orderno, itemno]);
     }
 };

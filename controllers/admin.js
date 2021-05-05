@@ -157,15 +157,61 @@ exports.post_waiter3 = (req,res,next) => {
 };
 exports.get_chef1 = (req,res,next) => {
 
-
-    res.render('chef1', {
-        pageTitle: 'chef1',
-        path: '/chef1',
-        editing: false
+    Hotel
+    .get_orders()
+    .then((x)=>{
+        Hotel
+        .get_ingredients()
+        .then((y)=>{
+            res.render('chef1', {
+                pageTitle: 'chef1',
+                path: '/chef1',
+                editing: false,
+                order: x,
+                ingredients: y
+            });
+        });
     });
 
+};
+
+exports.post_chef1 = (req,res,next) => {
+    const orderno = req.body.order_no;
+    const itemno = req.body.item_no;
+    const num_items = req.body.numitems;
+    const status = req.body.status;
+    //console.log(orderno);
+    //console.log(itemno);
+    //console.log(num_items);
+    if(status == "placed"){
+        Hotel
+        .check_quantity(itemno, num_items)
+        .then(()=>{
+            Hotel
+            .approve(orderno,itemno)
+            .then(()=>{
+                res.redirect('/chef1');
+            })
+        })
+        .catch(() => {
+            Hotel
+            .decline(orderno,itemno)
+            .then(() => {
+                res.redirect('/chef1');
+            });
+        });
+    }
+    else if(status == "approved"){
+        //console.log(status);
+        Hotel
+        .ready(orderno,itemno)
+        .then(()=>{
+            res.redirect('/chef1');
+        });
+    }
 
 };
+
 exports.get_manager1 = (req,res,next) => {
 
     res.render('manager1', {

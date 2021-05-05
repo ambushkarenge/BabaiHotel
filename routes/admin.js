@@ -22,5 +22,6 @@ router.post('/waiter2',adminCon.post_waiter2);
 router.post('/waiter3',adminCon.post_waiter3);
 router.post('/manager1',adminCon.post_manager1);
 router.post('/manager2',adminCon.post_manager2);
+router.post('/chef1',adminCon.post_chef1);
 
 module.exports = router;

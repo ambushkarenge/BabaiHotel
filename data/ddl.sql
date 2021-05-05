@@ -125,7 +125,8 @@ CREATE TABLE public.orders (
 	item_no int REFERENCES public.item (item_no),
 	numitems int,
 	status text CHECK (status in ('placed', 'approved', 'declined', 'ready', 'closed')),
-	PRIMARY KEY (order_no, item_no)
+    entrytime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (order_no, item_no, entrytime)
 );
 
 CREATE TABLE public.preparedby (
