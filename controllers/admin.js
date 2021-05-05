@@ -1,7 +1,7 @@
 const Prod = require('../models/prod');
 const Hotel = require('../models/hotel');
 
-
+var cur_tab_no;
 exports.get_test = (req,res,next) => {
 
 
@@ -31,32 +31,38 @@ exports.get_waiter1 = (req,res,next) => {
 };
 exports.post_waiter1 = (req,res,next) => {
     const table_id = req.body.table_id;
+    cur_tab_no = table_id;
     //console.log(table_id)
     Hotel
         .get_table_status(table_id)
         .then((x) => {
             var val = x.rows[0].active
-            console.log(val)
-            console.log(val.localeCompare('no'))
+            //console.log(val)
+            //console.log(val.localeCompare('no'))
             if(val.localeCompare('no')==0)
             {
-                console.log('no');
+                //console.log('no');
                 Hotel 
                 .update_table_occupied(table_id)
                 .then(()=>
                 {
-                    res.redirect('/waiter2');
+                    Hotel
+                    .add_order_table(table_id)
+                    .then(()=>{
+                        res.redirect("/waiter2");
+                    });
+                    
                 })
                 .catch(err=>console.log(err));
             }
             else
             {
-                console.log('yes');
+                //console.log('yes');
                 Hotel 
                 .update_table_vacant(table_id)
                 .then(()=>
                 {
-                    res.redirect('/waiter2');
+                    res.redirect('/waiter1');
                 })
                 .catch(err=>console.log(err));
             }
@@ -65,14 +71,31 @@ exports.post_waiter1 = (req,res,next) => {
 };
 exports.get_waiter2 = (req,res,next) => {
 
+    //console.log(cur_tab_no);
+    Hotel
+    .get_items()
+    .then((x)=>
+    {
+        Hotel
+        .get_latest_order()
+        .then((y)=>{
 
-    res.render('waiter2', {
-        pageTitle: 'waiter2',
-        path: '/waiter2',
-        editing: false
-    });
+            res.render('waiter2',{
+                order_no_curr:y.rows[0].max_ord_no,
+                pageTitle: 'waiter2',
+                path: '/waiter2',
+                item_rows:x.rows,
+                tab_no: cur_tab_no,
+                editing: false
+            });
+        });
+        });
+};
 
-
+exports.post_waiter2 = (req,res,next) => {
+    const table_no = req.body.table_no;
+    const order_no = req.body.order_no;
+    const my_quant = [];
 };
 exports.get_waiter3 = (req,res,next) => {
 

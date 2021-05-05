@@ -16,6 +16,7 @@ module.exports = class Hotel{
         return pool.query('SELECT * FROM tables');
 
     }
+    // waiter1
     static get_table_status(table_id)
     {
         return pool.query('SELECT active from tables where table_no = $1;',[table_id]);
@@ -28,9 +29,23 @@ module.exports = class Hotel{
     {
         return pool.query("update tables set active = 'no' where table_no = $1;",[table_id]);
     }
-    // static invert_table_entry(table_id)
-    // {
-    //     return pool.query('UPDATE tables SET active = CASE WHEN active = "yes" THEN "no" WHEN active = "no" THEN "yes" ELSE NULL WHERE table_no = $1 END;',[table_id]);
-    // }
 
+    static add_order_table(table_id)
+    {
+        return pool.query("insert into order_table(table_no) values ($1);",[table_id]);
+    }
+    static get_latest_order()
+    {
+        return pool.query("select max(order_no) as max_ord_no from order_table");
+    }
+    // waiter2
+
+    static get_num_items()
+    {
+        return pool.query("select count(*) as no_items from item;");
+    }
+    static get_items()
+    {
+        return pool.query("select * from item;");
+    }
 };
