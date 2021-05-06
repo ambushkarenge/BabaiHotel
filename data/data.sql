@@ -8,14 +8,14 @@ DELETE FROM moneyflow;
 DELETE FROM feedback;
 DELETE FROM person;
 
-INSERT INTO person(name, contact_no, address, type) VALUES ('ManagerName', '1234567890', 'Flat 101, Babai Residency', 1);
-INSERT INTO person(name, contact_no, address, type) VALUES ('CashierName', '1234567891', 'Flat 201, Babai Residency', 2);
-INSERT INTO person(name, contact_no, address, type) VALUES ('Waiter1Name', '1234567892', 'Flat 301, Babai Residency', 3);
-INSERT INTO person(name, contact_no, address, type) VALUES ('Waiter2Name', '1234567893', 'Flat 302, Babai Residency', 3);
-INSERT INTO person(name, contact_no, address, type) VALUES ('Chef1Name', '1234567894', 'Flat 401, Babai Residency', 4);
-INSERT INTO person(name, contact_no, address, type) VALUES ('Chef2Name', '1234567895', 'Flat 402, Babai Residency', 4);
-INSERT INTO person(name, contact_no, address, type) VALUES ('Cust1Name', '1234567896', 'Flat 501, Babai Residency', 5);
-INSERT INTO person(name, contact_no, address, type) VALUES ('Cust2Name', '1234567897', 'Flat 502, Babai Residency', 5);
+INSERT INTO person(name, contact_no, address, type, password) VALUES ('ManagerName', '1234567890', 'Flat 101, Babai Residency', 1, "manager1");
+INSERT INTO person(name, contact_no, address, type, password) VALUES ('CashierName', '1234567891', 'Flat 201, Babai Residency', 2, "cashier1");
+INSERT INTO person(name, contact_no, address, type, password) VALUES ('Waiter1Name', '1234567892', 'Flat 301, Babai Residency', 3, "waiter1");
+INSERT INTO person(name, contact_no, address, type, password) VALUES ('Waiter2Name', '1234567893', 'Flat 302, Babai Residency', 3, "waiter2");
+INSERT INTO person(name, contact_no, address, type, password) VALUES ('Chef1Name', '1234567894', 'Flat 401, Babai Residency', 4, "chef1");
+INSERT INTO person(name, contact_no, address, type, password) VALUES ('Chef2Name', '1234567895', 'Flat 402, Babai Residency', 4, "chef2");
+-- INSERT INTO person(name, contact_no, address, type, password) VALUES ('Cust1Name', '1234567896', 'Flat 501, Babai Residency', 5);
+-- INSERT INTO person(name, contact_no, address, type, password) VALUES ('Cust2Name', '1234567897', 'Flat 502, Babai Residency', 5);
 
 
 

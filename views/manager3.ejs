@@ -8,7 +8,6 @@
 
  
  <h1>FEEDBACKS</h1>
- <form action="/manager3" method="post">
     <div class="grid">
         <table>
         <tr>
@@ -26,6 +25,25 @@
         </table>
      </div>
  
+     <h1>MONEYFLOW</h1>
+     <div class="grid">
+         <table>
+         <tr>
+             <th>S.no.</th>
+             <th>time</th>
+             <th>amount</th>
+             <th>io_check</th>
+         </tr>
+         <%for(var ijk = 0;ijk<moneyflow_rows.length; ijk++){ %>  
+                 <tr>
+                     <td><%=ijk+1%></td> 
+                     <td><%= moneyflow_rows[ijk].entrytime%></td>
+                     <td><%= moneyflow_rows[ijk].amount%></td>
+                     <td><%= moneyflow_rows[ijk].io_check%></td>
+                 </tr>
+         <%}%>
+         </table>
+      </div>
 </main>
 
 <%- include('includes/end.ejs') %>

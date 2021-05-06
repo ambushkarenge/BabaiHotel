@@ -78,6 +78,7 @@ CREATE TABLE public.person (
 	name text,
 	contact_no text,
 	address text,
+    password text,
 	type int CHECK (type > 0 and type < 6),
 	CONSTRAINT chk_phone CHECK (contact_no like '__________')
 );
@@ -148,7 +149,7 @@ CREATE TABLE public.bill_order (
 	PRIMARY KEY (bill_no, order_no)
 );
 
-COPY public.person (name, contact_no, address, type) FROM stdin;
+COPY public.person (name, contact_no, address, type, password) FROM stdin;
 \.
 
 COPY public.feedback (name, comment) FROM stdin;
