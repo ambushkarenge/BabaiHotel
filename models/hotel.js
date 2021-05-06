@@ -57,7 +57,7 @@ module.exports = class Hotel{
     //waiter3
     static get_order_details()
     {
-        return pool.query("select item.name, order_table.table_no, orders.order_no,orders.item_no,orders.numitems,orders.status from item, orders,order_table where item.item_no = orders.item_no and orders.order_no = order_table.order_no and orders.status <> 'closed' order by entrytime;");
+        return pool.query("select item.name, order_table.table_no, orders.order_no,orders.item_no,orders.numitems,orders.status from item, orders,order_table where item.item_no = orders.item_no and orders.order_no = order_table.order_no and orders.status <> 'closed' and orders.status <> 'served' order by entrytime;");
     }
 
     static get_status(item_no,order_no)
@@ -68,6 +68,11 @@ module.exports = class Hotel{
     static close_item(item_no,order_no)
     {
         return pool.query("update orders set status = 'closed' where item_no = $1 and order_no = $2;",[item_no,order_no]);
+    }
+
+    static serve_item(item_no,order_no)
+    {
+        return pool.query("update orders set status = 'served' where item_no = $1 and order_no = $2;",[item_no,order_no]);
     }
     //manager1
     static add_feedback(c_name,c_feedback)
@@ -147,13 +152,13 @@ module.exports = class Hotel{
     {
         return pool.query("Select sum(numitems*price) as tot_price from item, bill_order, orders where bill_no = $1 and \
         bill_order.order_no = orders.order_no and orders.item_no = item.item_no and\
-        orders.status = 'ready';", [bill_no]);
+        orders.status = 'served';", [bill_no]);
     }
     static get_list_items(bill_no)
     {
         return pool.query("Select numitems, item.item_no as num, name, numitems*price as t_price, price as i_price from item, bill_order, orders where bill_no = $1 and \
         bill_order.order_no = orders.order_no and orders.item_no = item.item_no and\
-        orders.status = 'ready';", [bill_no]);
+        orders.status = 'served';", [bill_no]);
     }
 
     //cashier2

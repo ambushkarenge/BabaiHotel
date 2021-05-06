@@ -1,4 +1,4 @@
-<%- include('includes/head.ejs') %>
+<%- include('includes/head2.ejs') %>
 <link rel="stylesheet" href="/css/forms.css">
 <link rel="stylesheet" href="/css/product.css">
 </head>
@@ -29,7 +29,7 @@
                 <td><%=order_rows[ijk].status%></td>
                 <td>
                     <form action="/waiter3" method="post">
-                        <button class="btn" type="submit">Close Item</button>
+                        <button class="btn" type="submit">Close / Serve Item</button>
                         <input type="hidden" name="order_no" value=<%=order_rows[ijk].order_no%>>
                         <input type="hidden" name="item_no" value=<%=order_rows[ijk].item_no%>>
                     </form>

@@ -139,10 +139,19 @@ exports.post_waiter3 = (req,res,next) => {
     .get_status(item_no,order_no)
     .then((x)=>
     {
-        if(x.rows[0].status == 'declined' || x.rows[0].status == 'ready')
+        if(x.rows[0].status == 'declined')
         {
             Hotel
             .close_item(item_no,order_no)
+            .then((x) => {
+                    res.redirect('/waiter3');
+                
+            })
+        }
+        else if (x.rows[0].status == 'ready')
+        {
+            Hotel
+            .serve_item(item_no,order_no)
             .then((x) => {
                     res.redirect('/waiter3');
                 
