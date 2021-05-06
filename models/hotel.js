@@ -110,4 +110,48 @@ module.exports = class Hotel{
     {
         return pool.query("update orders set status = 'ready' where order_no = $1 and item_no = $2", [orderno, itemno]);
     }
+
+    //cashier1
+    static get_active()
+    {
+        return pool.query("select * from tables where active = 'yes';");
+    }
+    static add_bill()
+    {
+        return pool.query("Insert into bill(status) values ('not paid');");
+    }
+    static get_bill_no()
+    {
+        return pool.query("select max(bill_no) as bill_no from bill;");
+    }
+    static get_order_no(table_no)
+    {
+        return pool.query("select order_no from order_table where table_no = $1 and order_no not in (select order_no from bill_order);", [table_no]);
+    }
+    static add_bill_order(bill_no, order_no)
+    {
+        return pool.query("Insert into bill_order(bill_no,order_no) values ($1,$2);", [bill_no, order_no]);
+    }
+    static get_price(bill_no)
+    {
+        return pool.query("Select sum(numitems*price) as tot_price from item, bill_order, orders where bill_no = $1 and \
+        bill_order.order_no = orders.order_no and orders.item_no = item.item_no and\
+        orders.status = 'ready';", [bill_no]);
+    }
+    static get_list_items(bill_no)
+    {
+        return pool.query("Select numitems, item.item_no as num, name, numitems*price as t_price, price as i_price from item, bill_order, orders where bill_no = $1 and \
+        bill_order.order_no = orders.order_no and orders.item_no = item.item_no and\
+        orders.status = 'ready';", [bill_no]);
+    }
+
+    //cashier2
+    static change_bill_status(bill_no)
+    {
+        return pool.query("Update bill set status = 'paid' where bill_no = $1;",[bill_no]);
+    }
+    static add_moneyflow(price)
+    {
+        return pool.query("Insert into moneyflow(amount, io_check) values ($1, 'in');",[price]);
+    }
 };

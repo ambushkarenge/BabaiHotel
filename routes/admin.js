@@ -15,7 +15,7 @@ router.get('/chef1',adminCon.get_chef1);
 router.get('/manager1',adminCon.get_manager1);
 router.get('/manager2',adminCon.get_manager2);
 router.get('/cashier1',adminCon.get_cashier1);
-router.get('/cashier2',adminCon.get_cashier2);
+//router.get('/cashier2',adminCon.get_cashier2);
 
 router.post('/waiter1',adminCon.post_waiter1);
 router.post('/waiter2',adminCon.post_waiter2);
@@ -23,5 +23,7 @@ router.post('/waiter3',adminCon.post_waiter3);
 router.post('/manager1',adminCon.post_manager1);
 router.post('/manager2',adminCon.post_manager2);
 router.post('/chef1',adminCon.post_chef1);
+router.post('/cashier1',adminCon.post_cashier1);
+router.post('/cashier2',adminCon.post_cashier2);
 
 module.exports = router;

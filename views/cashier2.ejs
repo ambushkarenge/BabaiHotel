@@ -3,20 +3,23 @@
 <link rel="stylesheet" href="/css/product.css">
 </head>
 <body>
-    <%- include('includes/navigation_waiter.ejs') %> 
+    <!-- <%- include('includes/navigation_waiter.ejs') %>  -->
     <main>
  <!-- in main -->
  <!-- <h2>Credits availabe: 990518</h2> -->
  <!-- <form action="https://foddsdfaosjo.xyz/cart" method="post">
      <button type="submit">Buy</button>
  </form> -->
+ <h2> Bill No: <%= bill_no%></h2>
+ <h2> Table No: <%= table_no%></h2>
+ <h2> Order No: <%= order_no%></h2>
  <div class="grid">
-    <%for(var ijk = 0;ijk<5  ;ijk++){ %>  
+    <%for(var ijk = 0;ijk<listp.rows.length  ;ijk++){ %>  
         <!-- insert length -->
     <article class="card product-item">
         <header class="card__header">
             <h1 class="product__title">
-                <%="table"%><%=ijk%>
+                <%=listp.rows[ijk].name%>
             </h1>
         </header>
         <div class="card__image">
@@ -26,18 +29,28 @@
             <!-- <h2 class="Status">$
                 <%="Vacant"%>
             </h2> -->
-            <p class="product__description">Status:
-                <%="Vacant"%>
+            <p class="product__description">Item no:
+                <%=listp.rows[ijk].num%>
             </p>
-            <div class="card__actions">
-        <form action="/cart" method="post">
-            <button class="btn" type="submit">Pay</button>
-            <input type="hidden" name="product_id" value=<%=ijk%>>
-            </form>
-        </div>
+            <p class="product__description">Quantity:
+                <%=listp.rows[ijk].numitems%>
+            </p>
+            <p class="product__description">Individual price:
+                <%=listp.rows[ijk].i_price%>
+            </p>
+            <p class="product__description">Total price:
+                <%=listp.rows[ijk].t_price%>
+            </p>
         </div>
     </article>
     <%}%>
+    <h2> Net price: <%=price%></h2>
+    <form action="/cashier2" method="post">
+        <button class="btn" type="submit">Pay</button>
+        <input type="hidden" name="bill_no" value=<%=bill_no%>>
+        <input type="hidden" name="tot_price" value=<%=price%>>
+        </form>
+    </div>
 </div>
 </main>
 <%- include('includes/end.ejs') %>

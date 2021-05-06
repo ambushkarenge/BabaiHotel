@@ -222,6 +222,20 @@ exports.get_manager1 = (req,res,next) => {
 
 
 };
+
+exports.post_manager1 = (req,res,next) => {
+
+    const c_name = req.body.name;
+    const feedback = req.body.feedback;
+    Hotel
+        .add_feedback(c_name,feedback)
+        .then(()=>{
+            res.redirect('/manager1');
+        })
+        .catch(err => console.log(err));
+
+};
+
 exports.get_manager2 = (req,res,next) => {
 
     Hotel
@@ -235,41 +249,6 @@ exports.get_manager2 = (req,res,next) => {
         });
     })
 
-};
-exports.get_cashier1 = (req,res,next) => {
-
-
-    res.render('cashier1', {
-        pageTitle: 'cashier1',
-        path: '/cashier1',
-        editing: false
-    });
-
-
-};
-exports.get_cashier2 = (req,res,next) => {
-
-
-    res.render('cashier2', {
-        pageTitle: 'cashier2',
-        path: '/cashier2',
-        editing: false
-    });
-
-
-};
-exports.post_test = (req,res,next) => {
-    const title = req.body.title;
-    const image = req.body.image
-    const price = req.body.price;
-    const quantity = req.body.quantity;
-    const product = new Prod( title, image, price,quantity);
-    product
-        .add_prod()
-        .then(() => {
-            res.redirect('/admin/add-product');
-        })
-        .catch(err => console.log(err));
 };
 
 exports.post_manager2 = (req,res,next) => {
@@ -295,15 +274,88 @@ exports.post_manager2 = (req,res,next) => {
 
 };
 
-exports.post_manager1 = (req,res,next) => {
+exports.get_cashier1 = (req,res,next) => {
 
-    const c_name = req.body.name;
-    const feedback = req.body.feedback;
     Hotel
-        .add_feedback(c_name,feedback)
+    .get_active()
+    .then((x) => {
+        res.render('cashier1', {
+            pageTitle: 'cashier1',
+            path: '/cashier1',
+            editing: false,
+            tab_rows: x.rows
+        });
+    });
+};
+
+exports.post_cashier1 = (req,res,next) => {
+    const table_no = req.body.table_no;
+    //var cost = 0;
+    Hotel
+    .add_bill()
+    .then(()=>{
+        Hotel
+        .get_order_no(table_no)
+        .then((x) =>{
+            const order_no = x.rows[0].order_no;
+            Hotel
+            .get_bill_no()
+            .then((a) => {
+                const bill_no = a.rows[0].bill_no;
+                Hotel
+                .add_bill_order(bill_no, order_no)
+                .then(() => {
+                    Hotel
+                    .get_price(bill_no)
+                    .then((y) => {
+                        Hotel
+                        .get_list_items(bill_no)
+                        .then((z) => {
+                            res.render('cashier2', {
+                                pageTitle: 'cashier2',
+                                path: '/cashier2',
+                                editing: false,
+                                price: y.rows[0].tot_price,
+                                table_no: table_no,
+                                bill_no: bill_no,
+                                order_no: order_no,
+                                listp: z
+                            });
+                        });
+                    });
+                });
+            });
+        });
+ 
+    });
+    
+};
+
+exports.post_cashier2 = (req,res,next) => {
+
+    const bill_no = req.body.bill_no;
+    const price = req.body.tot_price;
+    Hotel
+    .change_bill_status(bill_no)
+    .then(()=>{
+        Hotel
+        .add_moneyflow(price)
         .then(()=>{
-            res.redirect('/manager1');
+            res.redirect('/cashier1');
+        });
+    });
+    
+};
+exports.post_test = (req,res,next) => {
+    const title = req.body.title;
+    const image = req.body.image
+    const price = req.body.price;
+    const quantity = req.body.quantity;
+    const product = new Prod( title, image, price,quantity);
+    product
+        .add_prod()
+        .then(() => {
+            res.redirect('/admin/add-product');
         })
         .catch(err => console.log(err));
-
 };

@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="/css/product.css">
 </head>
 <body>
-    <%- include('includes/navigation_waiter.ejs') %> 
+    <!--<%- include('includes/navigation_waiter.ejs') %> -->
     <main>
  <!-- in main -->
  <!-- <h2>Credits availabe: 990518</h2> -->
@@ -11,12 +11,12 @@
      <button type="submit">Buy</button>
  </form> -->
  <div class="grid">
-    <%for(var ijk = 0;ijk<5  ;ijk++){ %>  
+    <%for(var ijk = 0;ijk<tab_rows.length; ijk++){ %>  
         <!-- insert length -->
     <article class="card product-item">
         <header class="card__header">
             <h1 class="product__title">
-                <%="table"%><%=ijk%>
+                <%="table"%><%=tab_rows[ijk].table_no%>
             </h1>
         </header>
         <div class="card__image">
@@ -26,13 +26,10 @@
             <!-- <h2 class="Status">$
                 <%="Vacant"%>
             </h2> -->
-            <p class="product__description">Status:
-                <%="Vacant"%>
-            </p>
             <div class="card__actions">
-        <form action="/cart" method="post">
+        <form action="/cashier1" method="post">
             <button class="btn" type="submit">Get bill</button>
-            <input type="hidden" name="product_id" value=<%=ijk%>>
+            <input type="hidden" name="table_no" value=<%=tab_rows[ijk].table_no%>>
             </form>
         </div>
         </div>
