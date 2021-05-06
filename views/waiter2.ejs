@@ -5,18 +5,31 @@
 <body>
     <%- include('includes/navigation_waiter.ejs') %> 
     <main>
- <!-- in main -->
- <!-- <h2>Credits availabe: 990518</h2> -->
- <!-- <form action="https://foddsdfaosjo.xyz/cart" method="post">
-     <button type="submit">Buy</button>
- </form> -->
 
  <form action="/waiter2" method="post">
- <div class="grid">
-    <!-- <p><%=tab_no%></p>
+    <div class="grid">
+        <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+        <%for(var ijk = 0;ijk<item_rows.length; ijk++){ %>  
+                <tr>
+                    <td><%=item_rows[ijk].name%></td>
+                    <td><%=item_rows[ijk].price%></td>
+                    <td>
+                        <input type="text" name=<%=item_rows[ijk].item_no%> id="title" value=0>
+                    </td>
+                </tr>
+        <%}%>
+        </table>
+     </div>
+     <!-- <p><%=tab_no%></p>
     <p><%=order_no_curr%></p> -->
+ <!-- <div class="grid">
+    
     <%for(var ijk = 0;ijk<item_rows.length  ;ijk++){ %>  
-        <!-- insert length -->
     <article class="card product-item">
         <header class="card__header">
             <h1 class="product__title">
@@ -27,9 +40,6 @@
             <img src=<%="https://c.ndtvimg.com/2019-06/s71ihu9_biryani_625x300_05_June_19.jpg"%> width="50" height="150" alt="biryani">
         </div>
         <div class="card__content">
-            <!-- <h2 class="product__price">$
-                <%="2101"%>
-            </h2> -->
             <p class="product__description">Price per quantity:
                 <%=item_rows[ijk].price%>
             </p>
@@ -40,13 +50,12 @@
         </div>
     </article>
     <%}%>
-</div>
+</div> -->
 <div class="card__actions">
         <button class="btn" type="submit">Submit</button>
         <input type="hidden" name="table_no" value=<%=tab_no%>>
         <input type="hidden" name="order_no" value=<%=order_no_curr%>>
     </div>
-
 </form>
 </main>
 <%- include('includes/end.ejs') %>

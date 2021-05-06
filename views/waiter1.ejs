@@ -10,9 +10,8 @@
  <!-- <form action="https://foddsdfaosjo.xyz/cart" method="post">
      <button type="submit">Buy</button>
  </form> -->
- <div class="grid">
+ <!-- <div class="grid">
     <%for(var ijk = 0;ijk<tab_rows.length  ;ijk++){ %>  
-        <!-- insert length -->
     <article class="card product-item">
         <header class="card__header">
             <h1 class="product__title">
@@ -23,9 +22,6 @@
             <img src=<%="https://cdnimg.webstaurantstore.com/uploads/seo_category/2019/5/table-dining-sets.jpg"%> width="50" height="150" alt="apple">
         </div>
         <div class="card__content">
-            <!-- <h2 class="Status">$
-                <%="Vacant"%>
-            </h2> -->
             <p class="product__description">Status:
                 <%if(tab_rows[ijk].active=="no"){%>
                     <p class="product__description">"Vacant"</p>
@@ -43,6 +39,33 @@
         </div>
     </article>
     <%}%>
-</div>
+</div> -->
+<div class="grid">
+    <table>
+    <tr>
+        <th>Table No</th>
+        <th>Active</th>
+        <th>Occupy/Clear</th>
+    </tr>
+    <%for(var ijk = 0;ijk<tab_rows.length; ijk++){ %>  
+            <tr>
+                <td><%=tab_rows[ijk].table_no%></td>
+                <td>
+                    <%if(tab_rows[ijk].active=="no"){%>
+                        "Vacant"
+                    <%}else{%>
+                        "Occupied"
+                        <%}%>
+                </td>
+                <td>
+                    <form action="/waiter1" method="post">
+                        <button class="btn" type="submit">Occupy/Clear</button>
+                        <input type="hidden" name="table_id" value=<%=tab_rows[ijk].table_no%>>
+                    </form> 
+                </td>
+            </tr>
+    <%}%>
+    </table>
+ </div>
 </main>
 <%- include('includes/end.ejs') %>

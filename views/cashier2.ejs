@@ -14,8 +14,27 @@
  <h2> Table No: <%= table_no%></h2>
  <h2> Order No: <%= order_no%></h2>
  <div class="grid">
+    <table>
+    <tr>
+        <th>Item No</th>
+        <th>Item Name</th>
+        <th>Rate</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+    </tr>
+    <%for(var ijk = 0;ijk<listp.rows.length; ijk++){ %>  
+            <tr>
+                <td><%=listp.rows[ijk].num%></td>
+                <td><%=listp.rows[ijk].name%></td>
+                <td><%=listp.rows[ijk].i_price%></td>
+                <td><%=listp.rows[ijk].numitems%></td>
+                <td><%=listp.rows[ijk].t_price%></td>
+            </tr>
+    <%}%>
+    </table>
+ </div>
+ <!-- <div class="grid">
     <%for(var ijk = 0;ijk<listp.rows.length  ;ijk++){ %>  
-        <!-- insert length -->
     <article class="card product-item">
         <header class="card__header">
             <h1 class="product__title">
@@ -26,9 +45,6 @@
             <img src=<%="https://cdnimg.webstaurantstore.com/uploads/seo_category/2019/5/table-dining-sets.jpg"%> width="50" height="150" alt="apple">
         </div>
         <div class="card__content">
-            <!-- <h2 class="Status">$
-                <%="Vacant"%>
-            </h2> -->
             <p class="product__description">Item no:
                 <%=listp.rows[ijk].num%>
             </p>
@@ -44,13 +60,12 @@
         </div>
     </article>
     <%}%>
-    <h2> Net price: <%=price%></h2>
-    <form action="/cashier2" method="post">
-        <button class="btn" type="submit">Pay</button>
-        <input type="hidden" name="bill_no" value=<%=bill_no%>>
-        <input type="hidden" name="tot_price" value=<%=price%>>
-        </form>
-    </div>
-</div>
+</div> -->
+<h2> Net price: <%=price%></h2>
+<form action="/cashier2" method="post">
+    <button class="btn" type="submit">Pay</button>
+    <input type="hidden" name="bill_no" value=<%=bill_no%>>
+    <input type="hidden" name="tot_price" value=<%=price%>>
+</form>
 </main>
 <%- include('includes/end.ejs') %>

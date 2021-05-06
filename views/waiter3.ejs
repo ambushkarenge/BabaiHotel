@@ -11,8 +11,35 @@
      <button type="submit">Buy</button>
  </form> -->
  <div class="grid">
+    <table>
+    <tr>
+        <th>Table No</th>
+        <th>Order No</th>
+        <th>Item Name</th>
+        <th>Quantity</th>
+        <th>Status</th>
+        <th>Close Button</th>
+    </tr>
+    <%for(var ijk = 0;ijk<order_rows.length; ijk++){ %>  
+            <tr>
+                <td><%=order_rows[ijk].table_no%></td>
+                <td><%=order_rows[ijk].order_no%></td>
+                <td><%=order_rows[ijk].name%></td>
+                <td><%=order_rows[ijk].numitems%></td>
+                <td><%=order_rows[ijk].status%></td>
+                <td>
+                    <form action="/waiter3" method="post">
+                        <button class="btn" type="submit">Close Item</button>
+                        <input type="hidden" name="order_no" value=<%=order_rows[ijk].order_no%>>
+                        <input type="hidden" name="item_no" value=<%=order_rows[ijk].item_no%>>
+                    </form>
+                </td>
+            </tr>
+    <%}%>
+    </table>
+ </div>
+ <!-- <div class="grid">
     <%for(var ijk = 0;ijk<order_rows.length ;ijk++){ %>  
-        <!-- insert length -->
     <article class="card product-item">
         <header class="card__header">
             <h1 class="product__title">
@@ -32,13 +59,7 @@
                 <%=order_rows[ijk].numitems%>
             </h1>
         </header>
-        <!-- <div class="card__image">
-            <img src=<%="https://c.ndtvimg.com/2019-06/s71ihu9_biryani_625x300_05_June_19.jpg"%> width="50" height="150" alt="biryani">
-        </div> -->
         <div class="card__content">
-            <!-- <h2 class="product__price">$
-                <%="2101"%>
-            </h2> -->
             <p class="product__description">Order Status:
                 <%=order_rows[ijk].status%>
             </p>
@@ -53,6 +74,6 @@
         
     </article>
     <%}%>
-</div>
+</div> -->
 </main>
 <%- include('includes/end.ejs') %>

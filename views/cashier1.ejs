@@ -11,8 +11,26 @@
      <button type="submit">Buy</button>
  </form> -->
  <div class="grid">
+    <table>
+    <tr>
+        <th>Table No</th>
+        <th>Get Bill</th>
+    </tr>
     <%for(var ijk = 0;ijk<tab_rows.length; ijk++){ %>  
-        <!-- insert length -->
+            <tr>
+                <td><%=tab_rows[ijk].table_no%></td>
+                <td>
+                    <form action="/cashier1" method="post">
+                        <button class="btn" type="submit">Get bill</button>
+                        <input type="hidden" name="table_no" value=<%=tab_rows[ijk].table_no%>>
+                    </form>
+                </td>
+            </tr>
+    <%}%>
+    </table>
+ </div>
+ <!-- <div class="grid">
+    <%for(var ijk = 0;ijk<tab_rows.length; ijk++){ %>  
     <article class="card product-item">
         <header class="card__header">
             <h1 class="product__title">
@@ -23,9 +41,6 @@
             <img src=<%="https://cdnimg.webstaurantstore.com/uploads/seo_category/2019/5/table-dining-sets.jpg"%> width="50" height="150" alt="apple">
         </div>
         <div class="card__content">
-            <!-- <h2 class="Status">$
-                <%="Vacant"%>
-            </h2> -->
             <div class="card__actions">
         <form action="/cashier1" method="post">
             <button class="btn" type="submit">Get bill</button>
@@ -35,6 +50,6 @@
         </div>
     </article>
     <%}%>
-</div>
+</div> -->
 </main>
 <%- include('includes/end.ejs') %>
