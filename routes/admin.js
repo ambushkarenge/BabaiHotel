@@ -14,6 +14,7 @@ router.get('/waiter3',adminCon.get_waiter3);
 router.get('/chef1',adminCon.get_chef1);
 router.get('/manager1',adminCon.get_manager1);
 router.get('/manager2',adminCon.get_manager2);
+router.get('/manager3',adminCon.get_manager3);
 router.get('/cashier1',adminCon.get_cashier1);
 //router.get('/cashier2',adminCon.get_cashier2);
 

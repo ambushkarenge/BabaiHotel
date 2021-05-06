@@ -89,6 +89,17 @@ module.exports = class Hotel{
         return pool.query("insert into moneyflow(amount, io_check) values ($1, 'out');",[cost]);
     }
 
+    //manager3
+
+    static get_feedbacks()
+    {
+        return pool.query("select * from feedback;");
+    }
+
+    static get_moneyflow()
+    {
+        return pool.query("select * from moneyflow;");
+    }
     //chef1
     static get_orders()
     {

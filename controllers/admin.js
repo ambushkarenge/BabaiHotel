@@ -274,6 +274,26 @@ exports.post_manager2 = (req,res,next) => {
 
 };
 
+exports.get_manager3 = (req,res,next) => {
+
+    Hotel
+    .get_feedbacks()
+    .then((x) => {
+        Hotel.get_moneyflow()
+        .then((y)=>
+        {
+                res.render('manager3', {
+                pageTitle: 'manager3',
+                path: '/manager3',
+                editing: false,
+                feedback_rows: x.rows,
+                moneyflow_rows:y.rows
+            });
+        })
+        
+    })
+
+};
 exports.get_cashier1 = (req,res,next) => {
 
     Hotel
