@@ -16,6 +16,7 @@ router.get('/manager1',adminCon.get_manager1);
 router.get('/manager2',adminCon.get_manager2);
 router.get('/manager3',adminCon.get_manager3);
 router.get('/cashier1',adminCon.get_cashier1);
+router.get('/main',adminCon.get_main);
 //router.get('/cashier2',adminCon.get_cashier2);
 
 router.post('/waiter1',adminCon.post_waiter1);

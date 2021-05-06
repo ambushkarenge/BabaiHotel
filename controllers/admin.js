@@ -379,3 +379,11 @@ exports.post_test = (req,res,next) => {
         })
         .catch(err => console.log(err));
 };
+
+exports.get_main = (req,res,next) => {
+
+    res.render('main', {
+        pageTitle: 'main',
+        path: '/main',
+    });
+};
