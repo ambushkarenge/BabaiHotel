@@ -132,13 +132,13 @@ exports.post_waiter3 = (req,res,next) => {
     const tsec = req.body.tsec;
     //var cost = 0;
     Hotel
-    .get_status(item_no,order_no, thour, tmin, tsec)
+    .get_status(order_no,item_no, thour, tmin, tsec)
     .then((x)=>
     {
         if(x.rows[0].status == 'declined')
         {
             Hotel
-            .close_item(item_no,order_no,thour, tmin, tsec)
+            .close_item(order_no,item_no,thour, tmin, tsec)
             .then((x) => {
                     res.redirect('/waiter3');
                 
@@ -147,7 +147,7 @@ exports.post_waiter3 = (req,res,next) => {
         else if (x.rows[0].status == 'ready')
         {
             Hotel
-            .serve_item(item_no,order_no, thour, tmin, tsec)
+            .serve_item(order_no,item_no, thour, tmin, tsec)
             .then((x) => {
                     res.redirect('/waiter3');
                 
@@ -188,6 +188,8 @@ exports.post_chef1 = (req,res,next) => {
     const thour = req.body.thour;
     const tmin = req.body.tmin;
     const tsec = req.body.tsec;
+    console.log(itemno);
+    console.log(orderno);
     console.log(thour);
     console.log(tmin);
     console.log(tsec);
@@ -195,11 +197,14 @@ exports.post_chef1 = (req,res,next) => {
         Hotel
         .check_quantity(itemno, num_items)
         .then(()=>{
+            console.log("hi");
             Hotel
             .approve(orderno,itemno, thour, tmin, tsec)
             .then(()=>{
+                console.log("fuck");
                 res.redirect('/chef1');
             })
+            .catch(()=>console.log("fuck"));
         })
         .catch(() => {
             Hotel

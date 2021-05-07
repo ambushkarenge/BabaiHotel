@@ -60,19 +60,19 @@ module.exports = class Hotel{
         return pool.query("select item.name, order_table.table_no, orders.order_no,orders.item_no,orders.numitems,orders.status,thour, tmin, tsec from item, orders,order_table where item.item_no = orders.item_no and orders.order_no = order_table.order_no and orders.status <> 'closed' and orders.status <> 'served' order by entrytime;");
     }
 
-    static get_status(item_no,order_no, thour, tmin, tsec)
+    static get_status(order_no,item_no, thour, tmin, tsec)
     {
         return pool.query("select status from orders where item_no = $1\
          and order_no = $2 and thour = $3 and tmin = $4 and \
          tsec = $5;",[item_no,order_no,thour,tmin,tsec]);
     }
 
-    static close_item(item_no,order_no, thour, tmin, tsec)
+    static close_item(order_no,item_no, thour, tmin, tsec)
     {
         return pool.query("update orders set status = 'closed' where item_no = $1 and order_no = $2 and thour = $3 and tmin = $4 and tsec = $5;",[item_no,order_no, thour, tmin, tsec]);
     }
 
-    static serve_item(item_no,order_no, thour, tmin, tsec)
+    static serve_item(order_no,item_no, thour, tmin, tsec)
     {
         return pool.query("update orders set status = 'served' where item_no = $1 and order_no = $2 and thour = $3 and tmin = $4 and tsec = $5;",[item_no,order_no, thour, tmin, tsec]);
     }
@@ -116,15 +116,15 @@ module.exports = class Hotel{
     {
         return pool.query("update ingredient set quantity = quantity - $2*(select quantity_used from preparedby where ingredient.ingredient_id = preparedby.ingredient_id and preparedby.item_no = $1) where ingredient_id in (select ingredient_id from preparedby where preparedby.item_no = $1);",[item_no,quantity]);
     }
-    static approve(item_no,order_no, thour, tmin, tsec)
+    static approve(order_no,item_no, thour, tmin, tsec)
     {
         return pool.query("update orders set status = 'approved' where item_no = $1 and order_no = $2 and thour = $3 and tmin = $4 and tsec = $5;",[item_no,order_no, thour, tmin, tsec]);
     }
-    static decline(item_no,order_no, thour, tmin, tsec)
+    static decline(order_no,item_no, thour, tmin, tsec)
     {
         return pool.query("update orders set status = 'declined' where item_no = $1 and order_no = $2 and thour = $3 and tmin = $4 and tsec = $5;",[item_no,order_no, thour, tmin, tsec]);
     }
-    static ready(item_no,order_no, thour, tmin, tsec)
+    static ready(order_no,item_no, thour, tmin, tsec)
     {
         return pool.query("update orders set status = 'ready' where item_no = $1 and order_no = $2 and thour = $3 and tmin = $4 and tsec = $5;",[item_no,order_no, thour, tmin, tsec]);
     }
