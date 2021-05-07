@@ -1,0 +1,14 @@
+<%- include('includes/head2.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+</head>
+<body>
+    <h1>Welcome to Babai Hotel</h1>
+    <h2>Hi youre in <%=user%></h2>
+    <form action="/dashboard" method="post">
+        <button class="btn" type="submit">Continue</button>
+        <input type="hidden" name="user_id" value=<%=user_id%>>
+    </form> 
+    <a href="/logout">Log out</a>
+<%- include('includes/end.ejs') %>

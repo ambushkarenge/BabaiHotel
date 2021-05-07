@@ -364,15 +364,23 @@ exports.post_cashier2 = (req,res,next) => {
 
     const bill_no = req.body.bill_no;
     const price = req.body.tot_price;
+    const table_no = req.body.table_no;
     Hotel
     .change_bill_status(bill_no)
     .then(()=>{
         Hotel
         .add_moneyflow(price)
         .then(()=>{
-            res.redirect('/cashier1');
+            Hotel
+            .update_table_vacant(table_no)
+            .then(()=>
+            {
+                res.redirect('/cashier1');
+            });
+            
         });
     });
+    
     
 };
 exports.post_test = (req,res,next) => {

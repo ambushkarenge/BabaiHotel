@@ -1,0 +1,30 @@
+<%- include('includes/head2.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+</head>
+<body style="margin-left: 1in;">
+    <h1>Welcome to Babai Hotel</h1>
+    <h2>Welcome to login page</h2>
+    <ul>
+    <%if(messages.sucess_msg){%>
+        <li><%=messages.sucess_msg%></li>
+        <%}%>
+    </ul>
+    <ul>
+        <%if(messages.error){%>
+            <li><%=messages.error%></li>
+            <%}%>
+    </ul>
+    <form action="/login" method="POST">
+        <div style="margin-left: 1in;">
+            
+            <div><p>Number</p><input type="text" id= "number" name = "number" placeholder="9999999999" required></div>
+            
+            <div><p>Password</p><input type="password" id= "password" name = "password" placeholder="Enter Password" required></div>
+            <div><br><button type="submit">Submit</button></div>
+        </div>
+    </form>
+    <div style="margin-left: 1in;"><p>Don't have an account? <a href="/signup"><button>sign up</button></a></p></div>
+    
+<%- include('includes/end.ejs') %>

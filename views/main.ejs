@@ -1,9 +1,10 @@
 <%- include('includes/head2.ejs') %>
 <link rel="stylesheet" href="/css/forms.css">
 <link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
 </head>
 <body>
     <h1>Welcome to Babai Hotel</h1>
-    <button><a class="<%= path === '/prods' ? 'active' : '' %>" href="/add">Sign up</a></button> /
-    <button><a class="<%= path === '/prods' ? 'active' : '' %>" href="/login">Login</a></button>
+    <a href="/signup"><button>Sign Up</button></a>/
+    <a href="/login"><button>Log in</button></a>
 <%- include('includes/end.ejs') %>

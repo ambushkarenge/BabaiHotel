@@ -79,7 +79,7 @@ CREATE TABLE public.person (
 	contact_no text,
 	address text,
     password text,
-	type int CHECK (type > 0 and type < 6),
+	type text CHECK (type in ('waiter','manager','chef','cashier')),
 	CONSTRAINT chk_phone CHECK (contact_no like '__________')
 );
 
