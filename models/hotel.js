@@ -57,22 +57,24 @@ module.exports = class Hotel{
     //waiter3
     static get_order_details()
     {
-        return pool.query("select item.name, order_table.table_no, orders.order_no,orders.item_no,orders.numitems,orders.status from item, orders,order_table where item.item_no = orders.item_no and orders.order_no = order_table.order_no and orders.status <> 'closed' and orders.status <> 'served' order by entrytime;");
+        return pool.query("select item.name, order_table.table_no, orders.order_no,orders.item_no,orders.numitems,orders.status,thour, tmin, tsec from item, orders,order_table where item.item_no = orders.item_no and orders.order_no = order_table.order_no and orders.status <> 'closed' and orders.status <> 'served' order by entrytime;");
     }
 
-    static get_status(item_no,order_no)
+    static get_status(item_no,order_no, thour, tmin, tsec)
     {
-        return pool.query("select status from orders where item_no = $1 and order_no = $2;",[item_no,order_no]);
+        return pool.query("select status from orders where item_no = $1\
+         and order_no = $2 and thour = $3 and tmin = $4 and \
+         tsec = $5;",[item_no,order_no,thour,tmin,tsec]);
     }
 
-    static close_item(item_no,order_no)
+    static close_item(item_no,order_no, thour, tmin, tsec)
     {
-        return pool.query("update orders set status = 'closed' where item_no = $1 and order_no = $2;",[item_no,order_no]);
+        return pool.query("update orders set status = 'closed' where item_no = $1 and order_no = $2 and thour = $3 and tmin = $4 and tsec = $5;",[item_no,order_no, thour, tmin, tsec]);
     }
 
-    static serve_item(item_no,order_no)
+    static serve_item(item_no,order_no, thour, tmin, tsec)
     {
-        return pool.query("update orders set status = 'served' where item_no = $1 and order_no = $2;",[item_no,order_no]);
+        return pool.query("update orders set status = 'served' where item_no = $1 and order_no = $2 and thour = $3 and tmin = $4 and tsec = $5;",[item_no,order_no, thour, tmin, tsec]);
     }
     //manager1
     static add_feedback(c_name,c_feedback)
@@ -108,23 +110,23 @@ module.exports = class Hotel{
     //chef1
     static get_orders()
     {
-        return pool.query("select order_no, name, item.item_no as item_no, numitems, status from orders, item where orders.item_no = item.item_no order by entrytime;");
+        return pool.query("select order_no, name, item.item_no as item_no, numitems, status, thour, tmin, tsec from orders, item where orders.item_no = item.item_no order by entrytime;");
     }
     static check_quantity(item_no,quantity)
     {
         return pool.query("update ingredient set quantity = quantity - $2*(select quantity_used from preparedby where ingredient.ingredient_id = preparedby.ingredient_id and preparedby.item_no = $1) where ingredient_id in (select ingredient_id from preparedby where preparedby.item_no = $1);",[item_no,quantity]);
     }
-    static approve(orderno, itemno)
+    static approve(item_no,order_no, thour, tmin, tsec)
     {
-        return pool.query("update orders set status = 'approved' where order_no = $1 and item_no = $2", [orderno, itemno]);
+        return pool.query("update orders set status = 'approved' where item_no = $1 and order_no = $2 and thour = $3 and tmin = $4 and tsec = $5;",[item_no,order_no, thour, tmin, tsec]);
     }
-    static decline(orderno, itemno)
+    static decline(item_no,order_no, thour, tmin, tsec)
     {
-        return pool.query("update orders set status = 'declined' where order_no = $1 and item_no = $2", [orderno, itemno]);
+        return pool.query("update orders set status = 'declined' where item_no = $1 and order_no = $2 and thour = $3 and tmin = $4 and tsec = $5;",[item_no,order_no, thour, tmin, tsec]);
     }
-    static ready(orderno, itemno)
+    static ready(item_no,order_no, thour, tmin, tsec)
     {
-        return pool.query("update orders set status = 'ready' where order_no = $1 and item_no = $2", [orderno, itemno]);
+        return pool.query("update orders set status = 'ready' where item_no = $1 and order_no = $2 and thour = $3 and tmin = $4 and tsec = $5;",[item_no,order_no, thour, tmin, tsec]);
     }
 
     //cashier1

@@ -57,14 +57,7 @@ exports.post_waiter1 = (req,res,next) => {
             }
             else
             {
-                //console.log('yes');
-                Hotel 
-                .update_table_vacant(table_id)
-                .then(()=>
-                {
-                    res.redirect('/waiter1');
-                })
-                .catch(err=>console.log(err));
+                res.redirect("/waiter2");
             }
         })
         .catch(err => console.log(err));
@@ -134,15 +127,18 @@ exports.get_waiter3 = (req,res,next) => {
 exports.post_waiter3 = (req,res,next) => {
     const item_no = req.body.item_no;
     const order_no = req.body.order_no;
+    const thour = req.body.thour;
+    const tmin = req.body.tmin;
+    const tsec = req.body.tsec;
     //var cost = 0;
     Hotel
-    .get_status(item_no,order_no)
+    .get_status(item_no,order_no, thour, tmin, tsec)
     .then((x)=>
     {
         if(x.rows[0].status == 'declined')
         {
             Hotel
-            .close_item(item_no,order_no)
+            .close_item(item_no,order_no,thour, tmin, tsec)
             .then((x) => {
                     res.redirect('/waiter3');
                 
@@ -151,7 +147,7 @@ exports.post_waiter3 = (req,res,next) => {
         else if (x.rows[0].status == 'ready')
         {
             Hotel
-            .serve_item(item_no,order_no)
+            .serve_item(item_no,order_no, thour, tmin, tsec)
             .then((x) => {
                     res.redirect('/waiter3');
                 
@@ -189,22 +185,25 @@ exports.post_chef1 = (req,res,next) => {
     const itemno = req.body.item_no;
     const num_items = req.body.numitems;
     const status = req.body.status;
-    //console.log(orderno);
-    //console.log(itemno);
-    //console.log(num_items);
+    const thour = req.body.thour;
+    const tmin = req.body.tmin;
+    const tsec = req.body.tsec;
+    console.log(thour);
+    console.log(tmin);
+    console.log(tsec);
     if(status == "placed"){
         Hotel
         .check_quantity(itemno, num_items)
         .then(()=>{
             Hotel
-            .approve(orderno,itemno)
+            .approve(orderno,itemno, thour, tmin, tsec)
             .then(()=>{
                 res.redirect('/chef1');
             })
         })
         .catch(() => {
             Hotel
-            .decline(orderno,itemno)
+            .decline(orderno,itemno, thour, tmin, tsec)
             .then(() => {
                 res.redirect('/chef1');
             });
@@ -213,7 +212,7 @@ exports.post_chef1 = (req,res,next) => {
     else if(status == "approved"){
         //console.log(status);
         Hotel
-        .ready(orderno,itemno)
+        .ready(orderno,itemno, thour, tmin, tsec)
         .then(()=>{
             res.redirect('/chef1');
         });

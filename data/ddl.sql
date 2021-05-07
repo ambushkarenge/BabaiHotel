@@ -8,8 +8,8 @@ DROP TABLE IF EXISTS item;
 DROP TABLE IF EXISTS tables;
 DROP TABLE IF EXISTS moneyflow;
 DROP TABLE IF EXISTS feedback;
-DROP TABLE IF EXISTS person;
-DROP SEQUENCE IF EXISTS user_id_seq CASCADE;
+--DROP TABLE IF EXISTS person;
+--DROP SEQUENCE IF EXISTS user_id_seq CASCADE;
 DROP SEQUENCE IF EXISTS flow_id_seq CASCADE;
 DROP SEQUENCE IF EXISTS item_no_seq CASCADE;
 DROP SEQUENCE IF EXISTS ingredient_id_seq CASCADE;
@@ -17,7 +17,7 @@ DROP SEQUENCE IF EXISTS order_no_seq CASCADE;
 DROP SEQUENCE IF EXISTS table_no_seq CASCADE;
 DROP SEQUENCE IF EXISTS bill_no_seq CASCADE;
 
-CREATE SEQUENCE public.user_id_seq
+CREATE SEQUENCE IF NOT EXISTS public.user_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -73,7 +73,7 @@ CREATE SEQUENCE public.bill_no_seq
     NO MAXVALUE
     CACHE 1;
 
-CREATE TABLE public.person (
+CREATE TABLE IF NOT EXISTS public.person (
 	user_id int PRIMARY KEY DEFAULT nextval('user_id_seq'),
 	name text,
 	contact_no text,
@@ -127,6 +127,9 @@ CREATE TABLE public.orders (
 	numitems int,
 	status text CHECK (status in ('placed', 'approved', 'declined', 'ready', 'closed','served')),
     entrytime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    thour int default date_part('hour', CURRENT_TIMESTAMP),
+    tmin int default date_part('minute', CURRENT_TIMESTAMP),
+    tsec int default date_part('second', CURRENT_TIMESTAMP),
 	PRIMARY KEY (order_no, item_no, entrytime)
 );
 

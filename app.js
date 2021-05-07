@@ -49,14 +49,14 @@ app.get("/signup",(req,res) => {
 app.post("/signup",async (req,res) =>
 {
     let {name,number,role,address,password,password2} = req.body;
-    console.log({
+    /*console.log({
         name,
         number,
         role,
         address,
         password,
         password2
-    })
+    })*/
     let errors=[];
     if(!name || !number || !role || !address || !password || !password2)
     {
@@ -81,7 +81,7 @@ app.post("/signup",async (req,res) =>
     else
     {
         let hashedPassword = await bcrypt.hash(password,10);
-        console.log(hashedPassword); 
+        //console.log(hashedPassword); 
         pool.query(
             'SELECT * FROM person where contact_no = $1;',[number], (err,results)=>{if(err)
                 {
@@ -101,7 +101,7 @@ app.post("/signup",async (req,res) =>
                             {
                                 throw err;
                             }
-                            console.log(results.row);
+                            //console.log(results.row);
                             req.flash('sucess_msg',"You are registed, Please Log in");
                             res.redirect("/login");
                          }
@@ -130,7 +130,7 @@ app.get("/logout",(req,res)=>
 })
 
 function checkAuthentication(req,res,next){
-    console.log(req.isAuthenticated());
+    //console.log(req.isAuthenticated());
     if(req.isAuthenticated()){
         //req.isAuthenticated() will return true if user is logged in
         next();
