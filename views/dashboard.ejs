@@ -5,10 +5,22 @@
 </head>
 <body>
     <h1>Welcome to Babai Hotel</h1>
-    <h2>Hi youre in <%=user%></h2>
-    <form action="/dashboard" method="post">
+    <h2>Hi you're in <%=user%></h2>
+    <%if (role=="waiter"){%>
+    <a href="/waiter1"><button>Continue</button></a>
+    <%}%>
+    <%if (role=="chef"){%>
+    <a href="/chef1"><button>Continue</button></a>
+    <%}%>
+    <%if (role=="manager"){%>
+    <a href="/manager1"><button>Continue</button></a>
+    <%}%>
+    <%if (role=="cashier"){%>
+    <a href="/cashier1"><button>Continue</button></a>
+    <%}%>
+   <!--  <form action="/dashboard" method="post">
         <button class="btn" type="submit">Continue</button>
         <input type="hidden" name="user_id" value=<%=user_id%>>
-    </form> 
+    </form>  -->
     <a href="/logout">Log out</a>
 <%- include('includes/end.ejs') %>

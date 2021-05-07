@@ -113,7 +113,7 @@ app.post("/signup",async (req,res) =>
 });
 
 app.get("/dashboard",checkAuthentication,(req,res) => {
-    res.render('dashboard',{pageTitle: 'dashboard', path : '/dashboad',user: req.user.name,user_id:req.user.user_id});
+    res.render('dashboard',{pageTitle: 'dashboard', path : '/dashboad',user: req.user.name,user_id:req.user.user_id, role: req.user.type});
 });
 
 app.post("/login",passport.authenticate('local',{

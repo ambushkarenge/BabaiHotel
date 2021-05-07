@@ -13,11 +13,14 @@
             <li class="main-header__item">
                 <a class="<%= path === '/orders' ? 'active' : '' %>" href="/waiter3">Status</a>
             </li>
-            <li class="main-header__item">
+            <!-- <li class="main-header__item">
                 <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Add Product
                 </a>
+            </li> -->
+            <li class="main-header__item">
+                <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/dashboard">Back to dashboard
+                </a>
             </li>
-
         </ul>
     </nav>
 </header>
@@ -37,12 +40,15 @@
                     <a class="<%= path === '/orders' ? 'active' : '' %>" href="/waiter3">Status</a>
                 </li>
                 <li class="mobile-nav__item">
+                    <a class="<%= path === '/orders' ? 'active' : '' %>" href="/dashboard">Back to dashboard</a>
+                </li>
+                <!-- <li class="mobile-nav__item">
                     <a class="<%= path === '/admin/add-product' ? 'active' : '' %>" href="/admin/add-product">Add Product
                     </a>
                 </li>
                 <li class="mobile-nav__item">
                     <a class="<%= path === '/admin/prods' ? 'active' : '' %>" href="/admin/prods">Admin Products
                     </a>
-                </li>
+                </li> -->
             </ul>
 </nav>
