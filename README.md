@@ -18,7 +18,7 @@ open your termnal and follow the series of commands below<br />
     Enter the password 'Varun@2211' when prompted<br />
 
 Open another terminal<br />
-    -> node app.js<br />
+    -> nvm run dev<br />
 
 open the following website in a browser<br />
-    -> localhost:3000/admin/add-product<br />
+    -> localhost:3000/main<br />
