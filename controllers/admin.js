@@ -94,7 +94,7 @@ exports.post_waiter2 = (req,res,next) => {
     .then((x) => {
         for(i=0;i<x.rows.length;++i){
             const name = x.rows[i].item_no;
-            if(req.body[name]!=0){
+            if(req.body[name]>0){
                 const q = req.body[name];
                 //cost = cost + q*x.rows[i].price;
                 Hotel.add_item_order(order_no,name,q);
@@ -271,7 +271,7 @@ exports.post_manager2 = (req,res,next) => {
     .then((x) => {
         for(i=0;i<x.rows.length;++i){
             const name = x.rows[i].ingredient_id;
-            if(req.body[name]!=0){
+            if(req.body[name]>0){
                 const q = req.body[name];
                 cost = cost + q*x.rows[i].price;
                 Hotel.add_ingredients(name,q);
